@@ -34,8 +34,14 @@ var constants = require('../utils/constants');
 module.exports = run;
 
 function run(opts) {
+
+  console.log("opts.options.device= " + opts.options.device);
+
     var deviceName = opts.options.device ? "device" : "emulator";
 
+deviceName = "device";
+   console.log("deviceName= " + deviceName);
+    //return runOnDevice();
     if (deviceName == "device") {
         return runOnDevice();
     } else {
@@ -144,9 +150,12 @@ function checkApk() {
 	.then( (projectRootPath) => {
         var deferred = Q.defer();
 
+        console.log("Project Root Path = " + projectRootPath );
         var customPluginPath = path.join(projectRootPath, 'plugins');
         var customAppPath = path.join(projectRootPath, 'platforms/android');
-        var customApkPath = path.join(projectRootPath, 'platforms/android/build/outputs/apk/android-debug.apk');
+        var customApkPath = path.join(projectRootPath, 'platforms/android/build/outputs/apk/debug/android-debug.apk');
+        console.log("customApkPath Path = " + customApkPath );
+
         if ( fs.existsSync(customAppPath) ) {
             if ( !fs.existsSync(customApkPath) ) {
                 deferred.reject(new Error("No custom apk found, please run 'aemm build android'."));
